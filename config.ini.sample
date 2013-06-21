@@ -1,5 +1,5 @@
 [mysql]
-host=dev.w3jp.info
+host=
 port=
 user=
 password=
