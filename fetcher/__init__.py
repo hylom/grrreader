@@ -1,4 +1,4 @@
-from fetcher import FeedFetcher, FilterError
+from feed import FeedFetcher
 
-all = ['FeedFetcher', 'FilterError']
+all = ['FeedFetcher',]
 
