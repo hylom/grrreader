@@ -12,9 +12,9 @@ def StartElementHandler(name, attr):
     if name == "outline":
         url = attr["xmlUrl"]
         title = attr["title"]
-        print u"add feed: {} as {}".format(url, title)
-        #mysql_db.append_feed(url, title)
-        mysql_db.update_feed(url, title)
+        print u"add feed: {0} as {1}".format(url, title)
+        mysql_db.append_feed(url, title)
+        #mysql_db.update_feed(url, title)
 
 def main():
     parser = xml.parsers.expat.ParserCreate('utf-8')

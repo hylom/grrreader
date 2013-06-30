@@ -3,3 +3,4 @@
 *.pyc
 config.ini
 node_modules
+config.json

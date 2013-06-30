@@ -15,11 +15,11 @@ def main():
             fid = feed[0]
             url = feed[1]
             title = feed[2]
-            print "fetching #{}: {}".format(fid, url)
+            print "fetching #{0}: {1}".format(fid, url)
             entries = fetcher.fetch(url)
             for entry in entries:
                 entry.feed_id = fid
-                print "insert {}".format(entry.url)
+                print "insert {0}".format(entry.url)
                 db.append_feed_content(entry)
         feeds = db.get_feeds(offset=read_count, limit=10)
         read_count += 10
