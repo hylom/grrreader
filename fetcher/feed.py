@@ -26,11 +26,11 @@ class FeedFetcher(object):
                 title=_get_attr(e, "title", "(no title)"),
                 url=_get_attr(e, "link"),
                 body=_get_attr(e, "description"),
-                timestamp=_get_attr(e, "updated", None)
+                timestamp=_get_attr(e, "published", None)
             )
 
             if entry.timestamp == None:
-                entry.timestamp = _get_attr(e, "published", None)
+                entry.timestamp = _get_attr(e, "updated", None)
 
             if entry.timestamp == None:
                 # if date is not defined, item is invalid
