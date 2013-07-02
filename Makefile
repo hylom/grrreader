@@ -1,4 +1,6 @@
 
+install:
+	./install.sh
 
 
 test-mysqldb:
