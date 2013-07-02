@@ -7,9 +7,12 @@
     pane.empty();
     for (var i = 0; i < data.length; i++) {
       var item = data[i];
-      var elem = '<tr><td>' + item.title + '</td>'
+      var elem = '<tr>'
+               + '<td>' + item.title + '</td>'
+               + '<td>' + item.formatedTimestamp + '</td>'
                + '<td><a target="_blank" href="' + item.url + '">'
-               + '<i class="icon-chevron-right"></i></a></td></tr>';
+               + '<i class="icon-chevron-right"></i></a></td>'
+               + '</tr>';
       pane.append(elem);
     }
   }

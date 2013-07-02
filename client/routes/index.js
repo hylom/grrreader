@@ -4,7 +4,42 @@
  */
 
 mysql = require('mysql');
-config = require('../config.json')
+config = require('../config.json');
+util = require('util');
+
+function timestampToDate(ts) {
+  var formatString = '%s/%s/%s';
+  var year = ts.getFullYear();
+  var month = ts.getMonth();
+  var day = ts.getDate();
+
+  year = String(year).slice(2, 4);
+  month = (month < 10) ? '0' + month : String(month);
+  day = (day < 10) ? '0' + day : String(day);
+
+  return util.format(formatString, year, month, day);
+}
+
+function timestampToTime(ts) {
+  var formatString = '%s:%s';
+  var hours = ts.getHours();
+  var minutes = ts.getMinutes();
+
+  hours = (hours < 10) ? '0' + hours : String(hours);
+  minutes = (minutes < 10) ? '0' + minutes : String(minutes);
+
+  return util.format(formatString, hours, minutes);
+}
+
+function formatTimestamp(ts) {
+  var today = timestampToDate(new Date());
+  var day = timestampToDate(ts);
+  if (day == today) {
+    return timestampToTime(ts);
+  } else {
+    return day;
+  }
+}
 
 exports.index = function (req, res) {
   var connection = mysql.createConnection(config.mysql);
@@ -41,6 +76,9 @@ exports.feedContent = function (req, res) {
       res.send(404);
       return;
     }
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].formatedTimestamp = formatTimestamp(rows[i].timestamp);
+    }
     res.json(rows[0]);
   });
 };
@@ -64,6 +102,9 @@ exports.feedContents = function (req, res) {
     if (rows.length == 0) {
       res.send(404);
       return;
+    }
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].formatedTimestamp = formatTimestamp(rows[i].timestamp);
     }
     res.json(rows);
   });

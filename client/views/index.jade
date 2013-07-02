@@ -4,9 +4,9 @@ block content
   .row
     p grdc - RSS reader
   .row
-    .span4
+    .span3
       ul.unstyled
         each feed in feeds
           li: a.feedItem(href='#', feed-id=feed.feed_id) #{feed.title}
-    .span8
+    .span9
       table.table.table-striped#contentsPane
