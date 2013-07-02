@@ -52,7 +52,9 @@ exports.feedContents = function (req, res) {
   connection.connect();
   var sql = 'SELECT content_id, feed_id, title, url, body, timestamp'
           + '  FROM feed_contents'
-          + '  WHERE feed_id = ?;'
+          + '  WHERE feed_id = ?'
+          + '  ORDER BY timestamp DESC'
+          + ';';
   connection.query(sql, feedId, function (err, rows, fields) {
     connection.end();
     if (err) {
