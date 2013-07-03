@@ -3,9 +3,10 @@
  * GET home page.
  */
 
-mysql = require('mysql');
-config = require('../config.json');
-util = require('util');
+var mysql = require('mysql');
+var config = require('../config.json');
+var util = require('util');
+var logger = require('../logger.js');
 
 function timestampToDate(ts) {
   var formatString = '%s/%s/%s';
@@ -48,6 +49,7 @@ exports.index = function (req, res) {
   connection.query('SELECT feed_id, url, title FROM feed_urls;', function (err, rows, fields) {
     connection.end();
     if (err) {
+      logger.debug("query error at index.index: " + util.inspect(err));
       res.send(500);
       return;
     }
@@ -69,6 +71,7 @@ exports.feedContent = function (req, res) {
   connection.query(sql, contentId, function (err, rows, fields) {
     connection.end();
     if (err) {
+      logger.debug("query error at index.feedContent: " + util.inspect(err));
       res.send(500);
       return;
     }
@@ -96,6 +99,7 @@ exports.feedContents = function (req, res) {
   connection.query(sql, feedId, function (err, rows, fields) {
     connection.end();
     if (err) {
+      logger.debug("query error at index.feedContents: " + util.inspect(err));
       res.send(500);
       return;
     }
