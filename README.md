@@ -1,5 +1,8 @@
-Rrreader - gxxgle Reader like Rss READER
+Rrreader
 ========================================
+
+Rrreader - gxxgle Reader like Rss READER
+(a.k.a. Gxxgle Reader Clone)
 
 
 What is "rrreader"?
@@ -33,7 +36,7 @@ How to install
 6. copy backend/config.ini.sample to backend/config.ini
 7. edit backend/config.ini
 8. fix 'DEST' line to install directory for client in install.sh
-9. execute backend/feedgetcher.py to initial feed fetching
+9. execute backend/feedfetcher.py to initial feed fetching
 10. add backend/feedfetcher.py to crontab
 11. start rrreader service like: `# service rreader start`
 
