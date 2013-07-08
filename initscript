@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-#	/etc/init.d/rssreader
-#	rssreader startup script.
+#	/etc/init.d/rrreader
+#	Rrreader RSS-Reader startup script.
 #
 # chkconfig:   345 98 2
 # description: RSS Reader service powered by Node.js.
 
 
-DAEMON_NAME=rssreader
+DAEMON_NAME=rrreader
 TARGET_SCRIPT=/var/grdc/app.js
 LOGFILE=/var/log/${DAEMON_NAME}.log
 STDOUTFILE=/var/log/${DAEMON_NAME}.out

@@ -1,8 +1,4 @@
 
-install:
-	./install.sh
-
-
 test-mysqldb:
 	PYTHONPATH=. python t/mysqldb.py
 
