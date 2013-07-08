@@ -1,5 +1,4 @@
 Rrreader - gxxgle Reader like Rss READER
-  (a.k.a. simple Gxxgle Reader Clone)
 ========================================
 
 
