@@ -7,8 +7,8 @@
 # description: RSS Reader service powered by Node.js.
 
 
-DAEMON_NAME=rrreader
-TARGET_SCRIPT=/var/grdc/app.js
+DAEMON_NAME=grrreader
+TARGET_SCRIPT=/var/grrreader/app.js
 LOGFILE=/var/log/${DAEMON_NAME}.log
 STDOUTFILE=/var/log/${DAEMON_NAME}.out
 ERRORFILE=/var/log/${DAEMON_NAME}.err

@@ -1,18 +1,18 @@
-Rrreader
+Grrreader
 ========================================
 
-Rrreader - gxxgle-Reader-like Rss READER
+Grrreader - gxxgle-Reader-like Rss READER
 (a.k.a. Gxxgle Reader Clone)
 
 
-What is "rrreader"?
+What is "grrreader"?
 -------------------
 
-Rrreader is Web-based RSS reader application. Rrreader has
+Grrreader is Web-based RSS reader application. Grrreader has
 Gxxgle-Reader-like AJAX based UI, independent RSS feed fetcher,
 and minimal feature to check RSSs are implemented.
 
-Rrreader uses Python to fetch RSS feed, and Node.js to build HTTP Server
+Grrreader uses Python to fetch RSS feed, and Node.js to build HTTP Server
 and Web UI.
 
 
@@ -21,7 +21,7 @@ Requires
  * Python 2.7.x
  * Node.js 0.10.x
  * Some python modules: feedparser, dateutil.parser, mysql.connector
- * Some node.js modules: defined in client/package.json
+ * Some node.js modules: defined in client/package.json and forever
  * MySQL
 
 
@@ -38,12 +38,12 @@ How to install
 8. fix 'DEST' line to install directory for client in install.sh
 9. execute backend/feedfetcher.py to initial feed fetching
 10. add backend/feedfetcher.py to crontab
-11. start rrreader service like: `# service rreader start`
+11. start rrreader service like: `# service grreader start`
 
 
 Sample crontab
 --------------
     # MM HH DD MM WE CMD
-    */30   *  *  *  *  cd /usr/local/share/rrreadder; /usr/bin/python feedfetcher.py > /dev/null
+    */30   *  *  *  *  cd /usr/local/share/grrreadder/backend; /usr/bin/python feedfetcher.py > /dev/null
 
 
