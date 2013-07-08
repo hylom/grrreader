@@ -8,9 +8,9 @@ Rrreader - gxxgle-Reader-like Rss READER
 What is "rrreader"?
 -------------------
 
-Rrreader is Web-based RSS reader application. Rrreader has Gxxgle Reader
-like AJAX based UI, independent RSS feed fetcher, and minimal features
-are implemented.
+Rrreader is Web-based RSS reader application. Rrreader has
+Gxxgle-Reader-like AJAX based UI, independent RSS feed fetcher,
+and minimal feature to check RSSs are implemented.
 
 Rrreader uses Python to fetch RSS feed, and Node.js to build HTTP Server
 and Web UI.
@@ -22,7 +22,7 @@ Requires
  * Node.js 0.10.x
  * Some python modules: feedparser, dateutil.parser, mysql.connector
  * Some node.js modules: defined in client/package.json
-
+ * MySQL
 
 
 How to install
