@@ -89,14 +89,30 @@ exports.feedContent = function (req, res) {
 exports.feedContents = function (req, res) {
   var feedId = req.params.fid;
   var connection = mysql.createConnection(config.mysql);
+  var skip = req.query.skip || 0;
+  var count = req.query.count || 20;
+
+  if (feedId === '0') {
+    // show all feeds
+    // TODO: if use multiple users, need checking subscribing feeds
+    var sql = 'SELECT content_id, feed_id, title, url, body, timestamp'
+      + '  FROM feed_contents'
+      + '  ORDER BY timestamp DESC'
+      + '  LIMIT ?, ?'
+      + ';';
+    var params = [skip, count];
+  } else {
+    var sql = 'SELECT content_id, feed_id, title, url, body, timestamp'
+      + '  FROM feed_contents'
+      + '  WHERE feed_id = ?'
+      + '  ORDER BY timestamp DESC'
+      + '  LIMIT ?, ?'
+      + ';';
+    var params = [feedId, skip, count];
+  }
 
   connection.connect();
-  var sql = 'SELECT content_id, feed_id, title, url, body, timestamp'
-          + '  FROM feed_contents'
-          + '  WHERE feed_id = ?'
-          + '  ORDER BY timestamp DESC'
-          + ';';
-  connection.query(sql, feedId, function (err, rows, fields) {
+  connection.query(sql, params, function (err, rows, fields) {
     connection.end();
     if (err) {
       logger.debug("query error at index.feedContents: " + util.inspect(err));

@@ -4,8 +4,10 @@ block content
   #contents-body
     .row
       .span3
+        a.feedItem(href='#', feed-id='0') All Feeds
         ul.unstyled
           each feed in feeds
             li: a.feedItem(href='#', feed-id=feed.feed_id) #{feed.title}
       .span9
+        h4#feedTitle All Feeds:
         table.table#contentsPane
