@@ -23,7 +23,25 @@ Grrreader is HTML and Ajax based RSS Reader application based on Node.js and Pyt
 %setup
 
 %build
+cd client; npm install
 
 %install
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/grrreader
+cp -pr * ${RPM_BUILD_ROOT}%{_datadir}/grrreader
+install -m 755 initscript ${RPM_BUILD_ROOT}%{_sysconfdir}/init.d/grrreader
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-, root, root, -)
+%doc README.md
+%doc license.txt
+%{_datadir}/grrreader/backend
+%{_datadir}/grrreader/client
+%{_sysconfdir}/init.d/grrreader
+
+%changelog
+* Tue 16 Jul 2013 Hiromichi Matsushima <hylom at hylom.net> - 0.0.5-1
+- Create RPM package
 

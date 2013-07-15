@@ -7,7 +7,7 @@ all: rpm
 tarball: $(TGZ_NAME)
 
 rpm: rpmbuild/SPECS/$(SPEC) rpmbuild/SOURCES/$(TGZ_NAME)
-	rpmbuild --define "_topdir ${PWD}/rpmbuild" -bp $(SPEC)
+	rpmbuild --define "_topdir ${PWD}/rpmbuild" -bi $(SPEC)
 
 rpmbuild/SPECS/$(SPEC): $(SPEC) rpmbuild/SPECS
 	cp $< $@
