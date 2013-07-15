@@ -11,11 +11,11 @@ Source0: http://hylom.net/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-Requires: nodejs >= 0.10.0
+Requires: nodejs >= 0.8.0
 Requires: python >= 2.6.6
 Requires: python-dateutil >= 1.4.1
 Requires: python-feedparser >= 5.1.2
-Requires: /usr/lib/node_modules/forever/bin/forever
+#Requires: /usr/bin/forever
 Requires: bash
 
 %description
@@ -23,7 +23,8 @@ Grrreader is HTML and Ajax based RSS Reader application based on Node.js and Pyt
 
 %prep
 %setup
-sed -i -e 's/\/var\/grrreader\/app.js/\/usr\/share\/grrreader\/app.js/' initscript 
+sed -i -e 's/^TARGET_SCRIPT.*$/TARGET_SCRIPT=\/usr\/share\/grrreader\/client\/app.js/' initscript 
+
 
 %build
 cd client; npm install
@@ -38,6 +39,9 @@ install -m 755 initscript ${RPM_BUILD_ROOT}%{_sysconfdir}/init.d/grrreader
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
+
+%preun
+/etc/init.d/grrreader stop
 
 %files
 %defattr(-, root, root, -)
