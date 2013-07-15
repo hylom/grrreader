@@ -90,6 +90,7 @@ exports.feedContents = function (req, res) {
 /*
   returns json:
   {
+    feedId: Number,
     totalCount: Number,
     skip: Number,
     itemCount: Number,
@@ -152,6 +153,7 @@ exports.feedContents = function (req, res) {
         rows[i].formatedTimestamp = formatTimestamp(rows[i].timestamp);
       }
       var result = {
+        "feedId": feedId,
         "total": totalCount,
         "skip": skip,
         "count": count,

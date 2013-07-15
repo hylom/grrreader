@@ -6,41 +6,61 @@
 
   function updatePager(total, skip, count) {
     var totalPage = Math.floor((total - 1) / count + 1);
-    var currentPage = (skip == 0) ? 0 : (skip - 1) / count + 1;
-    var elem = '';
+    var currentPage = Math.floor((skip - 1) / count + 1);
+    var pane = $('#contentsPane');
+    var feedId = Number(pane.attr('feedId'));
+    var elem;
+    var anchor;
 
     console.log(skip + ',' + count + '/' + total);
     console.log(currentPage + '/' + totalPage);
 
+    var pagerRange = 2;
+    var pagerStart = currentPage - pagerRange;
+    if (pagerStart < 0) {
+      pagerStart = 0;
+    }
+    var pagerEnd = pagerStart + 2 * pagerRange + 1;
+    if (pagerEnd > totalPage) {
+      pagerEnd = totalPage;
+      pagerStart = pagerEnd - 5;
+      if (pagerStart < 0) {
+        pagerStart = 0;
+      }
+    }
+
+    function _genHandler(feedId, skip, count) {
+      return function(ev) {
+        showFeed(feedId, skip, count);
+      }
+    }
+
     var paging = $('#page-navigation');
     paging.empty();
 
-    var pagingFirst = '<li id="paging-first"><a href="#">«</a></li>';
-    paging.append(pagingFirst);
-
-    if (currentPage > 0) {
-      elem = '<li><a href="#">'
-        + currentPage + '</a></li>';
+    if (pagerStart != 0) {
+      paging.append($('<li class="disabled"><a href="#">...</a></li>'));
+    }
+    for (var i = pagerStart; i < pagerEnd; i++) {
+      anchor = $('<a href="#">');
+      anchor.text(i + 1);
+      anchor.on('click', _genHandler(feedId, count * i, count));
+      elem = $('<li>');
+      elem.append(anchor);
+      if (i == currentPage) {
+        elem.addClass('disabled');
+      }
       paging.append(elem);
     }
-
-    elem = '<li class="active"><a href="#">' + (currentPage + 1)
-      + '</a></li>';
-    paging.append(elem);
-
-    if (currentPage != totalPage) {
-      elem = '<li><a href="#">'
-        + (currentPage + 2) + '</a></li>';
-      paging.append(elem);
+    if (pagerEnd != totalPage) {
+      paging.append($('<li class="disabled"><a href="#">...</a></li>'));
     }
-
-    var pagingLast = $('<li id="paging-last"><a href="#">»</a></li>');
-    paging.append(pagingLast);
   }
 
   function updateContentsPane(data) {
     var pane = $('#contentsPane');
     pane.empty();
+
     var tmpl = '<tr class="contentHeader" id="chead{{content_id}}">'
       + '<td class="contentTitle"><h4>'
       + '  <a href="#" class="contentTitleString" cid="{{content_id}}">{{title}}</a>'
@@ -64,6 +84,7 @@
     }
     pane.attr('skip', data.skip);
     pane.attr('count', data.count);
+    pane.attr('feedId', data.feedId);
     updatePager(data.total, data.skip, data.count);
   }
 
@@ -89,6 +110,8 @@
     $('#feedTitle').text(feedTitle);
     var pane = $('#contentsPane');
     pane.empty();
+    var paging = $('#page-navigation');
+    paging.empty();
     return false;
   });
 
