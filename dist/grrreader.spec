@@ -35,7 +35,8 @@ cp -pr backend ${RPM_BUILD_ROOT}%{_datadir}/grrreader/
 cp -pr client ${RPM_BUILD_ROOT}%{_datadir}/grrreader/
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/init.d
 install -m 755 initscript ${RPM_BUILD_ROOT}%{_sysconfdir}/init.d/grrreader
-
+mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.d
+install -m 644 cron ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.d/grrreader
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -50,6 +51,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_datadir}/grrreader/backend
 %{_datadir}/grrreader/client
 %{_sysconfdir}/init.d/grrreader
+%{_sysconfdir}/cron.d/grrreader
 
 %changelog
 * Tue Jul 16 2013 Hiromichi Matsushima <hylom at hylom.net> - 0.0.5-1
