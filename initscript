@@ -8,7 +8,7 @@
 
 
 DAEMON_NAME=grrreader
-TARGET_SCRIPT=/var/grrreader/app.js
+TARGET_SCRIPT=/var/grrreader/client/app.js
 LOGFILE=/var/log/${DAEMON_NAME}.log
 STDOUTFILE=/var/log/${DAEMON_NAME}.out
 ERRORFILE=/var/log/${DAEMON_NAME}.err
