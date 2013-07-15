@@ -4,6 +4,40 @@
 (function () {
   // private functions
 
+  function updatePager(total, skip, count) {
+    var totalPage = Math.floor((total - 1) / count + 1);
+    var currentPage = (skip == 0) ? 0 : (skip - 1) / count + 1;
+    var elem = '';
+
+    console.log(skip + ',' + count + '/' + total);
+    console.log(currentPage + '/' + totalPage);
+
+    var paging = $('#page-navigation');
+    paging.empty();
+
+    var pagingFirst = '<li id="paging-first"><a href="#">«</a></li>';
+    paging.append(pagingFirst);
+
+    if (currentPage > 0) {
+      elem = '<li><a href="#">'
+        + currentPage + '</a></li>';
+      paging.append(elem);
+    }
+
+    elem = '<li class="active"><a href="#">' + (currentPage + 1)
+      + '</a></li>';
+    paging.append(elem);
+
+    if (currentPage != totalPage) {
+      elem = '<li><a href="#">'
+        + (currentPage + 2) + '</a></li>';
+      paging.append(elem);
+    }
+
+    var pagingLast = $('<li id="paging-last"><a href="#">»</a></li>');
+    paging.append(pagingLast);
+  }
+
   function updateContentsPane(data) {
     var pane = $('#contentsPane');
     pane.empty();
@@ -22,43 +56,54 @@
     ;
     var tableRows = Hogan.compile(tmpl);
 
-    for (var i = 0; i < data.length; i++) {
-      var item = data[i];
+    var contents = data.contents;
+    for (var i = 0; i < contents.length; i++) {
+      var item = contents[i];
       var elem = tableRows.render(item);
       pane.append(elem);
     }
+    pane.attr('skip', data.skip);
+    pane.attr('count', data.count);
+    updatePager(data.total, data.skip, data.count);
   }
 
-  function loadFeed(event) {
+  function showFeed(feedId, skip, count) {
+    skip = skip || 0;
+    count = count || 20;
+    feedId = Number(feedId);
+    if (isNaN(feedId)) {
+      return
+    }
+    var url = '/api/feed/' + feedId + '/contents'
+      + '?skip=' + skip + '&count=' + count;
+    $.getJSON(url, updateContentsPane);
+  }
+
+  // Load feed
+  $(document).on('click', ".feedItem", function (ev) {
     var feedId = $(event.target).attr('feed-id');
     var feedTitle = $(event.target).text();
     if (feedId !== undefined) {
-      var url = '/api/feed/' + feedId + '/contents';
-      $.getJSON(url, updateContentsPane);
+      showFeed(feedId);
     }
     $('#feedTitle').text(feedTitle);
     var pane = $('#contentsPane');
     pane.empty();
     return false;
-  }
+  });
 
-  function toggleContentBody(event) {
+  // Toggle feed contents
+  $(document).on('click', ".contentTitleString", function (ev) {
     var contentId = $(event.target).attr('cid');
-    console.log('click header ' + contentId);
     if (contentId !== undefined) {
       $('#cbody' + contentId).toggle();
     }
     return false;
-  }
-
-  $(document).on('click', ".feedItem", loadFeed);
-  $(document).on('click', ".contentTitleString", toggleContentBody);
-
-  $(document).ready(function () {
-    var feedId = 0;
-    var url = '/api/feed/' + feedId + '/contents';
-    $.getJSON(url, updateContentsPane);
   });
+
+  // When page loaded, show 'All Feeds'
+  $(document).ready(function () {
+    showFeed(0);
+  });
+
 }).apply();
-
-
