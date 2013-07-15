@@ -87,14 +87,26 @@ exports.feedContent = function (req, res) {
 };
 
 exports.feedContents = function (req, res) {
+/*
+  returns json:
+  {
+    feedId: Number,
+    totalCount: Number,
+    skip: Number,
+    itemCount: Number,
+    contents: [
+    ]
+*/
   var feedId = req.params.fid;
   var connection = mysql.createConnection(config.mysql);
-  var skip = req.query.skip || 0;
-  var count = req.query.count || 20;
+  var skip = Number(req.query.skip) || 0;
+  var count = Number(req.query.count) || 20;
 
   if (feedId === '0') {
     // show all feeds
     // TODO: if use multiple users, need checking subscribing feeds
+    var sqlCount = 'SELECT COUNT(content_id) FROM feed_contents;';
+    var paramsCount = [];
     var sql = 'SELECT content_id, feed_id, title, url, body, timestamp'
       + '  FROM feed_contents'
       + '  ORDER BY timestamp DESC'
@@ -102,6 +114,9 @@ exports.feedContents = function (req, res) {
       + ';';
     var params = [skip, count];
   } else {
+    var sqlCount = 'SELECT COUNT(content_id) FROM feed_contents'
+      + ' WHERE feed_id = ?;'
+    var paramsCount = [feedId];
     var sql = 'SELECT content_id, feed_id, title, url, body, timestamp'
       + '  FROM feed_contents'
       + '  WHERE feed_id = ?'
@@ -112,8 +127,7 @@ exports.feedContents = function (req, res) {
   }
 
   connection.connect();
-  connection.query(sql, params, function (err, rows, fields) {
-    connection.end();
+  connection.query(sqlCount, paramsCount, function (err, rows, fields) {
     if (err) {
       logger.debug("query error at index.feedContents: " + util.inspect(err));
       res.send(500);
@@ -123,9 +137,29 @@ exports.feedContents = function (req, res) {
       res.send(404);
       return;
     }
-    for (var i = 0; i < rows.length; i++) {
-      rows[i].formatedTimestamp = formatTimestamp(rows[i].timestamp);
-    }
-    res.json(rows);
+    var totalCount = rows[0]['COUNT(content_id)'];
+    connection.query(sql, params, function (err, rows, fields) {
+      connection.end();
+      if (err) {
+        logger.debug("query error at index.feedContents: " + util.inspect(err));
+        res.send(500);
+        return;
+      }
+      if (rows.length == 0) {
+        res.send(404);
+        return;
+      }
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].formatedTimestamp = formatTimestamp(rows[i].timestamp);
+      }
+      var result = {
+        "feedId": feedId,
+        "total": totalCount,
+        "skip": skip,
+        "count": count,
+        "contents": rows
+      }
+      res.json(result);
+    });
   });
 };
