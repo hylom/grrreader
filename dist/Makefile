@@ -7,7 +7,8 @@ all: rpm
 tarball: $(TGZ_NAME)
 
 rpm: rpmbuild/SPECS/$(SPEC) rpmbuild/SOURCES/$(TGZ_NAME)
-	rpmbuild --define "_topdir ${PWD}/rpmbuild" -bi $(SPEC)
+	rpmbuild --define "_topdir ${PWD}/rpmbuild" -ba $(SPEC)
+	cp rpmbuild/RPMS/noarch/grrreader-$(VERSION)-*.rpm .
 
 rpmbuild/SPECS/$(SPEC): $(SPEC) rpmbuild/SPECS
 	cp $< $@
