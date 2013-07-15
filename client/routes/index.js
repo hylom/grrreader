@@ -11,7 +11,7 @@ var logger = require('../logger.js');
 function timestampToDate(ts) {
   var formatString = '%s/%s/%s';
   var year = ts.getFullYear();
-  var month = ts.getMonth();
+  var month = ts.getMonth() + 1;
   var day = ts.getDate();
 
   year = String(year).slice(2, 4);
