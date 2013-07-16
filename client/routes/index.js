@@ -8,6 +8,14 @@ var config = require('../config.json');
 var util = require('util');
 var logger = require('../logger.js');
 
+function utcToLocal(ts) {
+  var t = ts.getTime();
+  var dt = ts.getTimezoneOffset() * 60 * 1000;
+  var d = new Date();
+  d.setTime(t - dt);
+  return d;
+}
+
 function timestampToDate(ts) {
   var formatString = '%s/%s/%s';
   var year = ts.getFullYear();
@@ -34,9 +42,10 @@ function timestampToTime(ts) {
 
 function formatTimestamp(ts) {
   var today = timestampToDate(new Date());
-  var day = timestampToDate(ts);
+  var localTs = utcToLocal(ts);
+  var day = timestampToDate(localTs);
   if (day == today) {
-    return timestampToTime(ts);
+    return timestampToTime(localTs);
   } else {
     return day;
   }

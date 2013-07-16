@@ -36,9 +36,13 @@ class FeedFetcher(object):
                 # if date is not defined, item is invalid
                 continue
 
+            # parse timestamp and convert UTC
             entry.timestamp = dateutil.parser.parse(entry.timestamp)
             if entry.timestamp.tzinfo == None:
                 entry.timestamp = entry.timestamp.replace(tzinfo=dateutil.tz.tzutc())
+
+            elif entry.timestamp.tzinfo != dateutil.tz.tzutc():
+                entry.timestamp = entry.timestamp.astimezone(dateutil.tz.tzutc())
 
             entries.append(entry)
         return entries
