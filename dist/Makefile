@@ -1,5 +1,5 @@
 SPEC=grrreader.spec
-VERSION=0.0.5
+VERSION=0.0.6
 DIST_DIR=dist
 TGZ_NAME=grrreader-$(VERSION).tar.gz
 
