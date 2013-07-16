@@ -41,7 +41,7 @@ class FeedFetcher(object):
             if entry.timestamp.tzinfo == None:
                 entry.timestamp = entry.timestamp.replace(tzinfo=dateutil.tz.tzutc())
 
-            else if entry.timestamp.tzinfo != dateutil.tz.tzutc():
+            elif entry.timestamp.tzinfo != dateutil.tz.tzutc():
                 entry.timestamp = entry.timestamp.astimezone(dateutil.tz.tzutc())
 
             entries.append(entry)
