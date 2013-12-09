@@ -29,3 +29,4 @@ clean:
 	rm -rf rpmbuild
 	rm -f $(TGZ_NAME)
 	rm -f grrreader-$(VERSION)-*.rpm
+	rm -f grrreader-*.tar.gz
