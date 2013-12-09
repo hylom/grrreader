@@ -3,7 +3,7 @@
 Summary: HTML-Based RSS Reader inspired by widely known discontinued reader
 URL: http://hylom.net/grrreader
 Name: grrreader
-Version: 0.0.6
+Version: 0.0.7
 Group: Applications/Internet
 Release: 1
 License: GPLv2
@@ -54,6 +54,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_sysconfdir}/cron.d/grrreader
 
 %changelog
+* Mon Dec 9 2013 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-1
+ - fix: when invalid timestamp in RSS, replace to current timestamp
+
 * Tue Jul 16 2013 Hiromichi Matsushima <hylom at hylom.net> - 0.0.6-1
 - update to 0.0.6
 

@@ -4,6 +4,7 @@
 import feedparser
 import dateutil.parser
 from db import FeedContent
+from datetime import datetime
 
 def _get_attr(obj, attr, default=""):
     try:
@@ -37,7 +38,10 @@ class FeedFetcher(object):
                 continue
 
             # parse timestamp and convert UTC
-            entry.timestamp = dateutil.parser.parse(entry.timestamp)
+            try:
+                entry.timestamp = dateutil.parser.parse(entry.timestamp)
+            except ValueError:
+                entry.timestamp = datetime.now()
             if entry.timestamp.tzinfo == None:
                 entry.timestamp = entry.timestamp.replace(tzinfo=dateutil.tz.tzutc())
 
