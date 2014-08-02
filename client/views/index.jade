@@ -3,15 +3,15 @@ extends layout
 block content
   #contents-body
     .row
-      .span3
+      .col-md-3
         ul.unstyled
           li: a.feedItem(href='#', feed-id='0') All Feeds
         hr
         ul.unstyled
           each feed in feeds
             li: a.feedItem(href='#', feed-id=feed.feed_id) #{feed.title}
-      .span9
+      .col-md-9
         h4#feedTitle All Feeds:
         table.table#contentsPane
-        .pagination.pagination-centered
-          ul#page-navigation
+        #paging
+          ul#page-navigation.pagination
