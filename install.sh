@@ -1,5 +1,5 @@
 FROM=./client/
-DEST=/var/grrreader/
+DEST=/var/grrreader/client/
 INITSCRIPT=./initscript
 
 rsync $1 -av --exclude=.* --exclude=*~ $FROM $DEST
