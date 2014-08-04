@@ -10,7 +10,6 @@
     "jade": "*",
     "mysql": "*",
     "winston": "*",
-    "hogan.js": "*",
-    "bootstrap": "*"
+    "hogan.js": "*"
   }
 }
