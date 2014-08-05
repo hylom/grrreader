@@ -12,6 +12,8 @@ block content
             li: a.feedItem(href='#', feed-id=feed.feed_id) #{feed.title}
       .col-md-9
         h4#feedTitle All Feeds:
+        .paging
+          ul#page-navigation-top.pagination
         table.table#contentsPane
-        #paging
-          ul#page-navigation.pagination
+        .paging
+          ul#page-navigation-bottom.pagination

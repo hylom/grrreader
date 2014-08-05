@@ -4,7 +4,7 @@
 (function () {
   // private functions
 
-  function updatePager(total, skip, count) {
+  function updatePager(total, skip, count, pager) {
     var totalPage = Math.floor((total - 1) / count + 1);
     var currentPage = Math.floor((skip - 1) / count + 1);
     var pane = $('#contentsPane');
@@ -35,11 +35,10 @@
       }
     }
 
-    var paging = $('#page-navigation');
-    paging.empty();
+    pager.empty();
 
     if (pagerStart != 0) {
-      paging.append($('<li class="disabled"><a href="#">...</a></li>'));
+      pager.append($('<li class="disabled"><a href="#">...</a></li>'));
     }
     for (var i = pagerStart; i < pagerEnd; i++) {
       anchor = $('<a href="#">');
@@ -50,10 +49,10 @@
       if (i == currentPage) {
         elem.addClass('disabled');
       }
-      paging.append(elem);
+      pager.append(elem);
     }
     if (pagerEnd != totalPage) {
-      paging.append($('<li class="disabled"><a href="#">...</a></li>'));
+      pager.append($('<li class="disabled"><a href="#">...</a></li>'));
     }
   }
 
@@ -85,7 +84,10 @@
     pane.attr('skip', data.skip);
     pane.attr('count', data.count);
     pane.attr('feedId', data.feedId);
-    updatePager(data.total, data.skip, data.count);
+    var pagingTop = $('#page-navigation-top');
+    var pagingBottom = $('#page-navigation-bottom');
+    updatePager(data.total, data.skip, data.count, pagingTop);
+    updatePager(data.total, data.skip, data.count, pagingBottom);
   }
 
   function showFeed(feedId, skip, count) {
