@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grrreader</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="author" href="https://plus.google.com/115759524056726415451?rel=author">
+  </head>
+  <body>
+    <h1>Grrreader</h1>
+
+    <p>Grrreader - Gxxgle-Reader-inspired Rss READER
+      (a.k.a. Gxxgle Reader Clone)</p>
+
+    <img src="/img/grrreader.png">
+
+    <h2>What is "grrreader"?</h2>
+
+    <p>Grrreader is Web-based RSS reader application. Grrreader has
+      Gxxgle-Reader-like AJAX based UI, independent RSS feed fetcher,
+      and minimal feature to check RSSs are implemented.</p>
+
+    <p>Grrreader uses Python to fetch RSS feed, and Node.js to build HTTP Server
+      and Web UI.</p>
+
+    <h2>Requires</h2>
+
+    <ul class="task-list">
+      <li>Python 2.7.x</li>
+      <li>Node.js 0.10.x</li>
+      <li>Some python modules: "feedparser", "dateutil.parser", "mysql.connector"</li>
+      <li>Some node.js modules: defined in client/package.json and "forever"</li>
+      <li>MySQL</li>
+    </ul>
+
+    <h2>How to install</h2>
+
+    <ol class="task-list">
+      <li>install Python (&gt;2.7.x), Node.js (&gt;0.10.x), MySQL</li>
+      <li>create MySQL database and user, tables for use</li>
+      <li>run <code>npm install</code> in client directory</li>
+      <li>copy client/config.json.sample to client/config.json</li>
+      <li>edit client/config.json</li>
+      <li>copy backend/config.ini.sample to backend/config.ini</li>
+      <li>edit backend/config.ini</li>
+      <li>fix 'DEST' line to install directory for client in install.sh</li>
+      <li>execute backend/feedfetcher.py to initial feed fetching</li>
+      <li>add backend/feedfetcher.py to crontab</li>
+      <li>start rrreader service like: <code># service grreader start</code>
+      </li>
+    </ol>
+
+    <h2>Create Tables</h2>
+
+    <p>To create Tables, do below commands.</p>
+
+    <pre><code>$ cd backend
+        $ python
+        Python 2.7.2 (default, Oct 11 2012, 20:14:37) 
+        [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
+        Type "help", "copyright", "credits" or "license" for more information.
+        &gt;&gt;&gt; import db
+        &gt;&gt;&gt; db.MySQLDatabase().create_tables()
+        &gt;&gt;&gt; ^D
+        $
+    </code></pre>
+
+    <h2>Import Google Reader's registered feeds</h2>
+
+    <pre><code>$ cd backend
+        $ python greaderimport.py &lt; ../subscriptions.xml  
+    </code></pre>
+
+    <h2>Sample crontab</h2>
+
+    <pre><code># MM HH DD MM WE CMD
+        */30   *  *  *  *  cd /usr/local/share/grrreadder/backend; /usr/bin/python feedfetcher.py &gt; /dev/null
+    </code></pre>
+
+  </body>
+</html>
