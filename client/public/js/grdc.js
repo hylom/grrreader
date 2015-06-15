@@ -67,7 +67,7 @@
       + '<td class="contentTimestamp">{{formatedTimestamp}}</td>'
       + '<td class="contentLink">'
       + '  <a target="_blank" href="{{url}}">'
-      + '  <i class="icon-chevron-right">&raquo;</i></a>'
+      + '  <i class="fa fa-external-link-square"></i></a>'
       + '</td></tr>'
       + '<tr class="contentBody" id="cbody{{content_id}}">'
       + '  <td colspan="3">{{{body}}}</td>'
