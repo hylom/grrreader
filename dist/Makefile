@@ -23,7 +23,7 @@ rpmbuild/%: rpmbuild
 	mkdir -p rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 $(TGZ_NAME):
-	cd ..; git archive --prefix=grrreader-$(VERSION)/ --format=tar release | gzip > $(DIST_DIR)/$(TGZ_NAME)
+	cd ..; git archive --prefix=grrreader-$(VERSION)/ --format=tar HEAD | gzip > $(DIST_DIR)/$(TGZ_NAME)
 
 clean:
 	rm -rf rpmbuild
