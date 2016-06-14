@@ -5,7 +5,7 @@ URL: http://hylom.net/grrreader
 Name: grrreader
 Version: 0.0.7
 Group: Applications/Internet
-Release: 2
+Release: 3
 License: GPLv2
 Source0: http://hylom.net/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -54,6 +54,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_sysconfdir}/cron.d/grrreader
 
 %changelog
+* Tue Jun 17 2016 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-3
+ - update build scripts
+
 * Wed Jun 17 2015 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-2
  - fix error exit when invalid URL in RSS
 
