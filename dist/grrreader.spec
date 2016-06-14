@@ -55,7 +55,7 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %changelog
 * Tue Jun 17 2016 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-3
- - update build scripts and spec file
+ - update build scripts and spec file for test
 
 * Wed Jun 17 2015 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-2
  - fix error exit when invalid URL in RSS
