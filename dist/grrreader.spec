@@ -54,7 +54,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_sysconfdir}/cron.d/grrreader
 
 %changelog
-* Tue Jun 17 2016 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-3
+* Fri Jun 17 2016 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-3
  - update build scripts and spec file for test
 
 * Wed Jun 17 2015 Hiromichi Matsushima <hylom at hylom.net> - 0.0.7-2
